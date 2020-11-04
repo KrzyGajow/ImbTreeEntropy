@@ -1,0 +1,8 @@
+useDynLib(ImbTreeEntropy, .registration=TRUE)
+exportPattern("^[[:alpha:]]+")
+importFrom(Rcpp, evalCpp)
+import(BBmisc)
+import(GenSA)
+import(data.tree)
+import(parallel)
+import(snow)

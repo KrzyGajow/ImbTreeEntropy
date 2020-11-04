@@ -1,0 +1,15 @@
+Package: ImbTreeEntropy
+Type: Package
+Title: Software to build Decision Trees for imbalanced data
+Version: 1.0.0
+Date: 2020-10-20
+Author: Krzysztof Gajowniczek
+Maintainer: Krzysztof Gajowniczek <krzysztof_gajowniczek@sggw.edu.pl>
+Description: Software to build Decision Trees for imbalanced data.
+License: GPL (>= 2)
+Encoding: UTF-8
+LazyData: true
+Depends:
+  R (>= 3.5), data.tree, snow, GenSA, BBmisc, Rcpp (>= 1.0.4)
+LinkingTo: Rcpp
+RoxygenNote: 7.1.1
