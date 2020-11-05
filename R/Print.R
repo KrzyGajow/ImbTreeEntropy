@@ -1,3 +1,21 @@
+#' Print an ImbTreeEntropy Object
+#'
+#' @param tree Fitted model object. This is assumed to be the result of some function that produces an object 
+#' with the same named components as that returned by the ImbTreeEntropy function.
+#' 
+#' @return
+#' @export PrintTree
+#'
+#' @examples
+#'
+#' \dontrun{
+#' library("ImbTreeEntropy")
+#' data(iris)
+#' Tree <- ImbTreeEntropy(Y_name = "Species", 
+#'                        X_names = colnames(iris)[-ncol(iris)], 
+#'                        data = iris) 
+#' Tree <- PrintTree(Tree)
+#' }
 PrintTree <- function( tree ){
   
   # Set displaying format for probability vector
@@ -8,6 +26,24 @@ PrintTree <- function( tree ){
   
 }
 
+#' Print an ImbTreeEntropyInter Object
+#'
+#' @param tree Fitted model object. This is assumed to be the result of some function that produces an object 
+#' with the same named components as that returned by the ImbTreeEntropyInter function.
+#' 
+#' @return
+#' @export PrintTreeInter
+#'
+#' @examples
+#'
+#' \dontrun{
+#' library("ImbTreeEntropy")
+#' data(iris)
+#' Tree <- ImbTreeEntropyInter(Y_name = "Species", 
+#'                             X_names = colnames(iris)[-ncol(iris)], 
+#'                             data = iris) 
+#' Tree <- PrintTreeInter(Tree)
+#' }
 PrintTreeInter <- function( tree ){
   
   # Set displaying format for probability vector

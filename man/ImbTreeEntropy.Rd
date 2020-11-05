@@ -2,24 +2,11 @@
 % Please edit documentation in R/ImbTreeEntropy.R
 \name{ImbTreeEntropy}
 \alias{ImbTreeEntropy}
-\title{Main function to build Decision Tree}
+\title{Fit a Decision Trees}
 \usage{
-ImbTreeEntropy(
-  Y_name,
-  X_names,
-  data,
-  depth = 5,
-  min_obs = 5,
-  type = "Shannon",
-  entropy_par = 1,
-  cp = 0,
-  n_cores = 1,
-  weights = NULL,
-  cost = NULL,
-  class_th = "equal",
-  overfit = "leafcut",
-  cf = 0.25
-)
+ImbTreeEntropy( Y_name, X_names, data, depth = 5, min_obs = 5, type = "Shannon", entropy_par = 1, 
+                cp = 0, n_cores = 1, weights = NULL, cost = NULL, class_th = "equal", 
+                overfit = "leafcut", cf = 0.25 )
 }
 \arguments{
 \item{Y_name}{Name of the target variable. Character vector of one element.}
@@ -63,14 +50,17 @@ Character vector of one element.}
 \item{cf}{Numeric vector of one element with the number in (0, 1) for the optional pessimistic-error-rate-based pruning step.}
 }
 \value{
+A fitted model/object of class \code{\link{Node}}, \code{\link{R6}}. See. \code{\link{data.tree}}.
+}
+\seealso{
+  \code{\link{ImbTreeEntropy}}, \code{\link{ImbTreeEntropyInter}}, \code{\link{PredictTree}}, \code{\link{PrintTree}}, \code{\link{PrintTreeInter}}, \code{\link{ExtractRules}}
+}
 
-}
-\description{
-Main function to build Decision Tree
-}
 \examples{
-
-\dontrun{
-  ImbTreeEntropy()
-}
+library("ImbTreeEntropy")
+data(iris)
+Tree <- ImbTreeEntropy(Y_name = "Species", 
+                       X_names = colnames(iris)[-ncol(iris)], 
+                       data = iris)
+PrintTree(Tree)
 }

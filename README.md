@@ -156,11 +156,12 @@ confusionMatrix( Tree11_pred$Class, iris_3$Species, positive = "1" )
 
 # Simulation 12: Interactive learning, original dataset, based on the probability peaks, 1 means that the whole tree is built based on the expert decision,
 # top 4 splits on attribute level, default prunning based on the leaf cut
+
+# Choosing sequence: 4, 3, 2, 1, 1
 Tree12 <- ImbTreeEntropyInter(Y_name = "Species", X_names = colnames(iris)[-ncol(iris)], data = iris, depth = 5, 
                               min_obs = 5, type = "Shannon", entropy_par = 1, cp = 0, n_cores = 1, weights = NULL, 
                               cost = NULL, class_th = "equal", overfit = "leafcut", cf = 0.25, 
                               amb_prob = 1, top_split = 4, var_lev = T, amb_class = NULL, amb_class_freq = NULL ) 
-# Choosing sequence: 4, 3, 2, 1, 1
 
 PrintTreeInter(Tree12)
 Tree12_pred <- PredictTree(Tree12, iris)
@@ -168,11 +169,12 @@ confusionMatrix( Tree12_pred$Class, iris$Species )
 
 # Simulation 13: Interactive learning, original dataset, based on the probability peaks, 
 # top 4 splits on the attribute level, prunning based on the cp
+
+# Choosing sequence: 4, 3, 3, 2
 Tree13 <- ImbTreeEntropyInter(Y_name = "Species", X_names = colnames(iris)[-ncol(iris)], data = iris, depth = 5, 
                               min_obs = 5, type = "Shannon", entropy_par = 1, cp = 0.1, n_cores = 1, weights = NULL, 
                               cost = NULL, class_th = "equal", overfit = "leafcut", cf = 0.25, 
                               amb_prob = 1, top_split = 4, var_lev = T, amb_class = NULL, amb_class_freq = NULL ) 
-# Choosing sequence: 4, 3, 3, 2
 
 PrintTreeInter(Tree13)
 Tree13_pred <- PredictTree(Tree13, iris)
@@ -181,11 +183,12 @@ confusionMatrix( Tree13_pred$Class, iris$Species )
 # Simulation 14: Interactive learning, original dataset, based on the class frequencies per node, 0 means that the whole tree is built based on the expert decision
 # top 4 splits on the for each split of the attribute, default prunning based on the leaf cut, 
 # desired classes (versicolor, virginica) with the frequencies (0.5,0.1)
+
+# Choosing sequence: 3, 2, 4
 Tree14 <- ImbTreeEntropyInter(Y_name = "Species", X_names = colnames(iris)[-ncol(iris)], data = iris, depth = 5, 
                               min_obs = 5, type = "Shannon", entropy_par = 1, cp = 0, n_cores = 1, weights = NULL, 
                               cost = NULL, class_th = "equal", overfit = "leafcut", cf = 0.25, amb_prob = 1, top_split = 4, 
                               var_lev = F, amb_class = c("versicolor", "virginica"), amb_class_freq = c(0.5,0.1) ) 
-# Choosing sequence: 3, 2, 4
 
 PrintTreeInter(Tree14)
 Tree14_pred <- PredictTree(Tree14, iris)

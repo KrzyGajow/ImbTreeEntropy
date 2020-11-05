@@ -1,4 +1,4 @@
-#' Main function to build Interactive Decision Tree
+#' Fit an Interactive Decision Tree
 #'
 #' @param Y_name Name of the target variable. Character vector of one element.
 #' @param X_names Attribute names used for target (Y_name) modelling. Character vector of many elements.
@@ -43,12 +43,18 @@
 #' *.txt file with the tree structure is iteratively updated. Character vector with one element.
 #'
 #' @return
-#' @export ImbTree
+#' @export ImbTreeEntropyInter
 #'
 #' @examples
-#'
+#' 
 #' \dontrun{
-#'   ImbTreeEntropyInter()
+#' library("ImbTreeEntropy")
+#' data(iris)
+#' # Choosing sequence: 4, 3, 2, 1, 1
+#' Tree <- ImbTreeEntropyInter(Y_name = "Species", 
+#'                             X_names = colnames(iris)[-ncol(iris)], 
+#'                             data = iris) 
+#' PrintTreeInter(Tree)
 #' }
 ImbTreeEntropyInter <- function( Y_name, X_names, data, depth = 5, min_obs = 5, type = "Shannon", entropy_par = 1, cp = 0, n_cores = 1,
                             weights = NULL, cost = NULL, class_th = "equal", overfit = "leafcut", cf = 0.25, amb_prob =  1, top_split = 2,

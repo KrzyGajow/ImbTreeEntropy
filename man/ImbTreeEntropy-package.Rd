@@ -1,34 +1,27 @@
 \name{ImbTreeEntropy-package}
 \alias{ImbTreeEntropy-package}
-\alias{ImbTreeEntropy}
 \docType{package}
 \title{
-  A short title line describing what the package does
+  An R package for building entropy based classification trees on the imbalanced datasets
 }
 \description{
-  A more detailed description of what the package does. A length
-  of about one to five lines is recommended.
+An R package for building binary and multiclass decision tree algorithms using generalized entropy functions, such as Renyi, Tsallis, Sharma-Mittal, Sharma-Taneja and Kapur, to measure impurity of a node. These are important extensions of the existing algorithms which usually employ Shannon entropy and the concept of information gain. Additionally, ImbTreeEntropy is able to handle imbalanced data which is a challenging issue in many practical applications. The package supports cost-sensitive learning by defining a misclassification cost matrix and weight sensitive learning. It accepts all types of attributes, including continuous, ordered and nominal. 
 }
-\details{
-  This section should provide a more detailed overview of how to use the
-  package, including the most important functions.
-}
-\author{
-Your Name, email optional.
 
-Maintainer: Your Name <your@email.com>
+\author{
+Krzysztof Gajowniczek
+
+Maintainer: krzysztof_gajowniczek@sggw.edu.pl
 }
 \references{
-  This optional section can contain literature or other references for
-  background information.
+
 }
 \keyword{ package }
 \seealso{
-  Optional links to other man pages
+  \code{\link{ImbTreeEntropy}}, \code{\link{ImbTreeEntropyInter}}, \code{\link{PredictTree}}, \code{\link{PrintTree}}, \code{\link{PrintTreeInter}}, \code{\link{ExtractRules}}
 }
 \examples{
   \dontrun{
-     ## Optional simple examples of the most important functions
-     ## These can be in \dontrun{} and \donttest{} blocks.   
+ 
   }
 }

@@ -1,3 +1,21 @@
+#' Extract decision rules from an ImbTreeEntropy Object
+#'
+#' @param tree Fitted model object. This is assumed to be the result of some function that produces an object 
+#' with the same named components as that returned by the ImbTreeEntropy or ImbTreeEntropyInter functions.
+#' 
+#' @return
+#' @export ExtractRules
+#'
+#' @examples
+#'
+#' \dontrun{
+#' library("ImbTreeEntropy")
+#' data(iris)
+#' Tree <- ImbTreeEntropy(Y_name = "Species", 
+#'                        X_names = colnames(iris)[-ncol(iris)], 
+#'                        data = iris) 
+#' Tree <- ExtractRules(Tree)
+#' }
 ExtractRules <- function( tree ){
   
   # Take the definition of the rule and transform to the appropriate format (A)

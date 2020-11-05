@@ -25,6 +25,25 @@ PredictObservation <- function( tree, observation ){
 
 }
 
+#' Predictions from an ImbTreeEntropy Object
+#'
+#' @param tree Fitted model object. This is assumed to be the result of some function that produces 
+#' an object with the same named components as that returned by the ImbTreeEntropy or ImbTreeEntropyInter functions.
+#' @param data Data frame of new examples to be predicted.
+#' 
+#' @return
+#' @export PredictTree
+#'
+#' @examples
+#'
+#' \dontrun{
+#' library("ImbTreeEntropy")
+#' data(iris)
+#' Tree <- ImbTreeEntropy(Y_name = "Species", 
+#'                        X_names = colnames(iris)[-ncol(iris)], 
+#'                        data = iris) 
+#' Tree <- PredictTree(Tree, iris)
+#' }
 PredictTree <- function( tree, data ){
 
   # Check if all required attributes exist in dataset

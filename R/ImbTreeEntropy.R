@@ -1,4 +1,4 @@
-#' Main function to build Decision Tree
+#' Fit a Decision Trees
 #'
 #' @param Y_name Name of the target variable. Character vector of one element.
 #' @param X_names Attribute names used for target (Y_name) modelling. Character vector of many elements.
@@ -28,12 +28,17 @@
 #' @param cf Numeric vector of one element with the number in (0, 1) for the optional pessimistic-error-rate-based pruning step.
 #'
 #' @return
-#' @export ImbTree
+#' @export ImbTreeEntropy
 #'
 #' @examples
 #'
 #' \dontrun{
-#'   ImbTreeEntropy()
+#' library("ImbTreeEntropy")
+#' data(iris)
+#' Tree <- ImbTreeEntropy(Y_name = "Species", 
+#'                        X_names = colnames(iris)[-ncol(iris)], 
+#'                        data = iris) 
+#' PrintTree(Tree)
 #' }
 ImbTreeEntropy <- function( Y_name, X_names, data, depth = 5, min_obs = 5, type = "Shannon", entropy_par = 1, cp = 0, n_cores = 1,
                             weights = NULL, cost = NULL, class_th = "equal", overfit = "leafcut", cf = 0.25 ){

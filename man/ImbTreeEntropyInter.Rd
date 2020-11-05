@@ -2,30 +2,12 @@
 % Please edit documentation in R/ImbTreeEntropyInter.R
 \name{ImbTreeEntropyInter}
 \alias{ImbTreeEntropyInter}
-\title{Main function to build Interactive Decision Tree}
+\title{Fit an Interactive Decision Trees}
 \usage{
-ImbTreeEntropyInter(
-  Y_name,
-  X_names,
-  data,
-  depth = 5,
-  min_obs = 5,
-  type = "Shannon",
-  entropy_par = 1,
-  cp = 0,
-  n_cores = 1,
-  weights = NULL,
-  cost = NULL,
-  class_th = "equal",
-  overfit = "leafcut",
-  cf = 0.25,
-  amb_prob = 1,
-  top_split = 2,
-  var_lev = T,
-  amb_class = NULL,
-  amb_class_freq = NULL,
-  tree_path = getwd()
-)
+ImbTreeEntropyInter( Y_name, X_names, data, depth = 5, min_obs = 5, type = "Shannon", entropy_par = 1, 
+                     cp = 0, n_cores = 1, weights = NULL, cost = NULL, class_th = "equal", 
+                     overfit ="leafcut", cf = 0.25, amb_prob = 1, top_split = 2, var_lev = T, 
+                     amb_class = NULL, amb_class_freq = NULL, tree_path = getwd() )
 }
 \arguments{
 \item{Y_name}{Name of the target variable. Character vector of one element.}
@@ -90,14 +72,18 @@ Numeric vector of many elements (from 1 up to number of classes). Should have th
 *.txt file with the tree structure is iteratively updated. Character vector with one element.}
 }
 \value{
+A fitted model/object of class \code{\link{Node}}, \code{\link{R6}}. See. \code{\link{data.tree}}.
+}
+\seealso{
+  \code{\link{ImbTreeEntropy}}, \code{\link{ImbTreeEntropyInter}}, \code{\link{PredictTree}}, \code{\link{PrintTree}}, \code{\link{PrintTreeInter}}, \code{\link{ExtractRules}}
+}
 
-}
-\description{
-Main function to build Interactive Decision Tree
-}
 \examples{
-
-\dontrun{
-  ImbTreeEntropyInter()
-}
+library("ImbTreeEntropy")
+data(iris)
+# Choosing sequence: 4, 3, 2, 1, 1
+Tree <- ImbTreeEntropyInter(Y_name = "Species", 
+                            X_names = colnames(iris)[-ncol(iris)], 
+                            data = iris) 
+PrintTreeInter(Tree)
 }
