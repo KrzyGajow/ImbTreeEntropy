@@ -9,6 +9,12 @@ AssignInitMeasures <- function( tree, data, Y_statistics, entropy_par, type, wei
   # Depth of the Tree
   tree$depth <- 0
   
+  # Node number
+  tree$Number <- 1
+  
+  # Decision number for interactive learning
+  tree$Decision <- ""
+  
   # Number of observations
   tree$Count <- nrow(data)
   

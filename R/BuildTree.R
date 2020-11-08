@@ -1,4 +1,4 @@
-BuildTree <- function( node, Y_name, X_names, data, depth, min_obs, type, entropy_par, cp, n_cores, weights, cost, class_th, overfit ){
+BuildTree <- function( node, Y_name, X_names, data, depth, min_obs, type, entropy_par, cp, n_cores, weights, cost, class_th, overfit, number ){
 
   # Number of observations in the node
   node$Count <- nrow(data)
@@ -37,31 +37,31 @@ BuildTree <- function( node, Y_name, X_names, data, depth, min_obs, type, entrop
     split_indexes <- node_name[[ 1 ]]
     l_name <- node_name[[ 2 ]]
     r_name <- node_name[[ 3 ]]
-    
+
     # Split data for each child
     child_frame <- split(data, split_indexes)
 
     # Create left child
-    childl <- CreateLeaf( node, split_rule, l_name, split_indexes, "value_left", "l_class_error" )
+    childl <- CreateLeaf( node, split_rule, l_name, split_indexes, "value_left", "l_class_error", 2 * number )
     
     # Recursive call of the building function (BuildTree) for the left child
-    BuildTree( childl, Y_name, X_names, child_frame[[2]], depth - 1, min_obs, type, entropy_par, cp, n_cores, weights, cost, class_th, overfit )
+    BuildTree( childl, Y_name, X_names, child_frame[[2]], depth - 1, min_obs, type, entropy_par, cp, n_cores, weights, cost, class_th, overfit, 2 * number )
     
     # Create right child
-    childr <- CreateLeaf( node, split_rule, r_name, !split_indexes, "value_right", "r_class_error" )
+    childr <- CreateLeaf( node, split_rule, r_name, !split_indexes, "value_right", "r_class_error", 2 * number + 1 )
     
     # Recursive call of the building function (BuildTree) for the right child
-    BuildTree( childr, Y_name, X_names, child_frame[[1]], depth - 1, min_obs, type, entropy_par, cp, n_cores, weights, cost, class_th, overfit )
+    BuildTree( childr, Y_name, X_names, child_frame[[1]], depth - 1, min_obs, type, entropy_par, cp, n_cores, weights, cost, class_th, overfit, 2 * number + 1 )
     
   }
 
 }
 
 PrepareNames <- function( split_rule, data ){
-  
+
   # Remove additional numbers from the row names
-  rownames(split_rule) <- gsub( ".[[:digit:]]{1,5}", "", rownames(split_rule) )
-  
+  rownames(split_rule) <- gsub( "\\.[[:digit:]]{1,5}", "", rownames(split_rule) )
+
   if_fac <- length(grep("\\(", split_rule[,"split"])) > 0
   if( if_fac ){
     
@@ -83,7 +83,7 @@ PrepareNames <- function( split_rule, data ){
   
 }
 
-CreateLeaf <- function( node, split_rule, name, split_indexes, value, class_error ){
+CreateLeaf <- function( node, split_rule, name, split_indexes, value, class_error, number ){
   
   # Create child
   child <- node$AddChild( name )
@@ -93,6 +93,7 @@ CreateLeaf <- function( node, split_rule, name, split_indexes, value, class_erro
   child$indexes <- node$indexes[split_indexes]
   child$depth <- node$depth + 1
   child$localerror <- split_rule[,class_error]
+  child$Number <- number
   
   return( child )
   

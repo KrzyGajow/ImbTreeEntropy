@@ -1,5 +1,5 @@
 InteractiveLearning <- function( split_rule, tree, Y_name, X_names, data, depth, min_obs, type, entropy_par, cp, n_cores, weights, cost, 
-                                 class_th, overfit, cf, amb_prob, top_split, var_lev, amb_class, tree_path ){
+                                 class_th, overfit, cf, amb_prob, top_split, var_lev, amb_class, number, tree_path ){
 
   # Check if interactive learning should be performed
   stop_cond <- StopCond( split_rule, amb_prob, amb_class )
@@ -45,6 +45,7 @@ InteractiveLearning <- function( split_rule, tree, Y_name, X_names, data, depth,
   # Create output file with the initial tree
   writeLines( capture.output( PrintTreeInter( tree$root ) ), sprintf( "%s/tree%s.txt", tree_path, 0 ) )
 
+  prune_vec <- c()
   for( i in 1:nrow(split_rule_inter) ){
 
     node_name <- PrepareNames( split_rule_inter[i,], data )
@@ -61,18 +62,18 @@ InteractiveLearning <- function( split_rule, tree, Y_name, X_names, data, depth,
 
     # Split data for each child
     child_frame <- split(data, split_indexes)
-    
+
     # Create left child
-    child <- CreateLeafInter( node, split_rule_inter[i, , drop = F], l_name, split_indexes, "value_left", "l_class_error", "*NOW*" )
-    
+    child <- CreateLeafInter( node, split_rule_inter[i, , drop = F], l_name, split_indexes, "value_left", "l_class_error", 2 * number, "*NOW*" )
+
     # Recursive call of the building function (BuildTree) for the left child
-    BuildTree( child, Y_name, X_names, child_frame[[2]], depth - 1, min_obs, type, entropy_par, cp, n_cores, weights, cost, class_th, overfit )
-    
+    BuildTree( child, Y_name, X_names, child_frame[[2]], depth - 1, min_obs, type, entropy_par, cp, n_cores, weights, cost, class_th, overfit, 2 * number )
+
     # Create right child
-    child <- CreateLeafInter( node, split_rule_inter[i, , drop = F], r_name, !split_indexes, "value_right", "r_class_error", "*NOW*" )
-    
+    child <- CreateLeafInter( node, split_rule_inter[i, , drop = F], r_name, !split_indexes, "value_right", "r_class_error", 2 * number + 1, "*NOW*" )
+
     # Recursive call of the building function (BuildTree) for the right child
-    BuildTree( child, Y_name, X_names, child_frame[[1]], depth - 1, min_obs, type, entropy_par, cp, n_cores, weights, cost, class_th, overfit )
+    BuildTree( child, Y_name, X_names, child_frame[[1]], depth - 1, min_obs, type, entropy_par, cp, n_cores, weights, cost, class_th, overfit, 2 * number + 1 )
 
     # Prune tree if needed
     if( overfit == "leafcut" ){
@@ -80,10 +81,16 @@ InteractiveLearning <- function( split_rule, tree, Y_name, X_names, data, depth,
       prune <- PruneTreeInter( node ) 
       
     }else if( overfit == "prune" ){
+
+      prune <- PessimisticErrorPruningInter( node, cf )
+
+    }else{
       
-      prune <- PessimisticErrorPruningInter( tree, cf )
+      prune <- "YES"
       
     }
+    
+    prune_vec <- c( prune_vec, prune )
     
     if( !prune == "NO" ){
       
@@ -103,7 +110,7 @@ InteractiveLearning <- function( split_rule, tree, Y_name, X_names, data, depth,
     
     # If there is only on split end
     ANSWER <- 1
-    if( nrow(split_rule_inter) == 1 | prune == "NO" ) break
+    if( nrow(split_rule_inter) == 1 | all( prune_vec == "NO") ) break
     
     # Choose the desired split
     ANSWER <- as.integer( readline( sprintf( "Please choose the tree number from 1 to %s: ", nrow(split_rule_inter) ) ) )
@@ -111,7 +118,7 @@ InteractiveLearning <- function( split_rule, tree, Y_name, X_names, data, depth,
     
   }
   
-  if( prune == "NO" ){
+  if( prune_vec[ANSWER] == "NO" ){
     
     # Prepare dummy table, there is no sense to perform any split
     split_rule <- matrix( 0, 0, 12, dimnames = list( NULL, colnames(split_rule) ) )

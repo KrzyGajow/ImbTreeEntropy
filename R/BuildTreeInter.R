@@ -1,5 +1,5 @@
-BuildTreeInter <- function( node, Y_name, X_names, data, depth, min_obs, type, entropy_par, cp, n_cores, weights, 
-                            cost, class_th, overfit, cf, amb_prob, top_split, var_lev, amb_class, amb_class_freq, tree_path ){
+BuildTreeInter <- function( node, Y_name, X_names, data, depth, min_obs, type, entropy_par, cp, n_cores, weights, cost, 
+                            class_th, overfit, cf, amb_prob, top_split, var_lev, amb_class, amb_class_freq, number, tree_path ){
 
   # Number of observations in the node
   node$Count <- nrow(data)
@@ -25,10 +25,10 @@ BuildTreeInter <- function( node, Y_name, X_names, data, depth, min_obs, type, e
   if( nrow(split_rule) !=0 ){
 
     class_prob_learn <- ClassProbLearn( amb_class, amb_class_freq, node$Count, probability, node$root$Count, node$root$Probability )
-
+      
     split_rule <- InteractiveLearning( split_rule, node, Y_name, X_names, data, depth, min_obs, type, entropy_par, cp, n_cores, 
-                                       weights, cost, class_th, overfit, cf, amb_prob, top_split, var_lev, class_prob_learn, tree_path )
-    
+                                       weights, cost, class_th, overfit, cf, amb_prob, top_split, var_lev, class_prob_learn, number, tree_path )
+
     # If decision was made, update the decision number
     if( attr( split_rule, "Decision" ) ){
       
@@ -65,17 +65,17 @@ BuildTreeInter <- function( node, Y_name, X_names, data, depth, min_obs, type, e
     child_frame <- split(data, split_indexes)
 
     # Create left child
-    childl <- CreateLeafInter( node, split_rule, l_name, split_indexes, "value_left", "l_class_error", Decision )
+    childl <- CreateLeafInter( node, split_rule, l_name, split_indexes, "value_left", "l_class_error", 2 * number, Decision )
     # Create right child
-    childr <- CreateLeafInter( node, split_rule, r_name, !split_indexes, "value_right", "r_class_error", Decision )
-    
+    childr <- CreateLeafInter( node, split_rule, r_name, !split_indexes, "value_right", "r_class_error", 2 * number + 1, Decision )
+
     # Recursive call of the building function (BuildTreeInter) for the left child
     BuildTreeInter( childl, Y_name, X_names, child_frame[[2]], depth - 1, min_obs, type, entropy_par, cp, n_cores, 
-                    weights, cost, class_th, overfit, cf, amb_prob, top_split, var_lev, amb_class, amb_class_freq, tree_path )
+                    weights, cost, class_th, overfit, cf, amb_prob, top_split, var_lev, amb_class, amb_class_freq, 2 * number, tree_path )
     
     # Recursive call of the building function (BuildTreeInter) for the right child
     BuildTreeInter( childr, Y_name, X_names, child_frame[[1]], depth - 1, min_obs, type, entropy_par, cp, n_cores, 
-                    weights, cost, class_th, overfit, cf, amb_prob, top_split, var_lev, amb_class, amb_class_freq, tree_path )
+                    weights, cost, class_th, overfit, cf, amb_prob, top_split, var_lev, amb_class, amb_class_freq, 2 * number + 1, tree_path )
     
   }
 
@@ -108,7 +108,7 @@ ClassProbLearn <- function( amb_class, amb_class_freq, node_count, node_prob, tr
   
 }
 
-CreateLeafInter <- function( node, split_rule, name, split_indexes, value, class_error, decision ){
+CreateLeafInter <- function( node, split_rule, name, split_indexes, value, class_error, number, decision ){
   
   # Create child
   child <- node$AddChild( name )
@@ -118,6 +118,7 @@ CreateLeafInter <- function( node, split_rule, name, split_indexes, value, class
   child$indexes <- node$indexes[split_indexes]
   child$depth <- node$depth + 1
   child$localerror <- split_rule[,class_error]
+  child$Number <- number
   child$Decision <- decision
   
   return( child )

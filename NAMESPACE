@@ -1,7 +1,19 @@
 useDynLib(ImbTreeEntropy, .registration=TRUE)
-exportPattern("^[[:alpha:]]+")
+export(
+	ImbTreeEntropy,
+	ImbTreeEntropyInter,
+	ExtractRules,
+	PredictTree,
+	PrintTree,
+	PrintTreeInter
+)
+
 importFrom(Rcpp, evalCpp)
 import(BBmisc)
 import(GenSA)
 import(data.tree)
 import(snow)
+import(utils)
+import(caret)
+import(shiny)
+import(RWeka)

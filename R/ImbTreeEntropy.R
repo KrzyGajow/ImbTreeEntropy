@@ -29,10 +29,15 @@
 #'
 #' @return
 #' @export ImbTreeEntropy
-#'
+#' 
+#' @seealso 
+#' \code{\link{ImbTreeEntropy}}, \code{\link{ImbTreeEntropyInter}}, \code{\link{PredictTree}}, 
+#' \code{\link{PrintTree}}, \code{\link{PrintTreeInter}}, \code{\link{ExtractRules}}
+#' 
 #' @examples
 #'
 #' \dontrun{
+#' 
 #' library("ImbTreeEntropy")
 #' data(iris)
 #' Tree <- ImbTreeEntropy(Y_name = "Species", 
@@ -75,7 +80,7 @@ ImbTreeEntropy <- function( Y_name, X_names, data, depth = 5, min_obs = 5, type 
   }
 
   # Call of the main Building function
-  BuildTree( Tree, Y_name, X_names, data, depth, min_obs, type, entropy_par, cp, n_cores, weights, cost, class_th, overfit )
+  BuildTree( Tree, Y_name, X_names, data, depth, min_obs, type, entropy_par, cp, n_cores, weights, cost, class_th, overfit, 1 )
 
   # Determine class of each observation based on various approaches setting up thresholds
   thresholds <- AssignClass( class_th, cost )
@@ -103,7 +108,7 @@ ImbTreeEntropy <- function( Y_name, X_names, data, depth = 5, min_obs = 5, type 
            overfit, cf, NULL, NULL, NULL, NULL, NULL )
 
   # Remove no more required objects
-  rm(list = c("Probability_matrix"), envir = .GlobalEnv)
+  rm(list = c("Probability_matrix", "Decision"), envir = .GlobalEnv)
   
   # If needed stop cluster for parallel processing
   if( n_cores > 1 ){

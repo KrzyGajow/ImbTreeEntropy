@@ -7,22 +7,19 @@
 #' @export PrintTree
 #'
 #' @examples
-#'
-#' \dontrun{
 #' library("ImbTreeEntropy")
 #' data(iris)
 #' Tree <- ImbTreeEntropy(Y_name = "Species", 
 #'                        X_names = colnames(iris)[-ncol(iris)], 
 #'                        data = iris) 
 #' Tree <- PrintTree(Tree)
-#' }
 PrintTree <- function( tree ){
   
   # Set displaying format for probability vector
   SetFormat(tree, "Probability", formatFun = function(x){ paste0("(",paste0(format(round(x,2), nsmall = 2),collapse = ", "),")") })
   
   # Print final tree
-  print( tree, "Count", "Class", "Probability", "Leaf", limit = 1000 )
+  print( tree, "Number", "Count", "Class", "Probability", "Leaf", limit = 1000 )
   
 }
 
@@ -50,6 +47,6 @@ PrintTreeInter <- function( tree ){
   SetFormat(tree, "Probability", formatFun = function(x){ paste0("(",paste0(format(round(x,2), nsmall = 2),collapse = ", "),")") })
   
   # Print final tree
-  print( tree, "Decision", "Count", "Class", "Probability", "Leaf", limit = 1000 )
+  print( tree, "Decision", "Number", "Count", "Class", "Probability", "Leaf", limit = 1000 )
   
 }

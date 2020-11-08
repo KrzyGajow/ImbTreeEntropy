@@ -100,10 +100,10 @@ StopIfNot <- function( Y_name, X_names, data, depth, min_obs, type, entropy_par,
 
   }
 
-  if( is.null(cost) & !class_th %in% c("equal", "tuned") ){
+  if( is.null(cost) & class_th %in% c("theoretical", "tuned") ){
 
     cat("\n\n********** PROGRAM TERMINATED **********\n\n")
-    cat( sprintf( "Set up both parameters: class_th in (equal, tuned), cost." ) )
+    cat( sprintf( "Set up both parameters: class_th in (theoretical, tuned), cost." ) )
     cat("\n\n********** PROGRAM TERMINATED **********\n\n")
     return( F )
 
@@ -136,10 +136,10 @@ StopIfNot <- function( Y_name, X_names, data, depth, min_obs, type, entropy_par,
     
   }
   
-  if( !(cf > 0 & cf < 1) ){
+  if( !(cf > 0 & cf <= 0.5) ){
     
     cat("\n\n********** PROGRAM TERMINATED **********\n\n")
-    cat( sprintf( "Cf should be in (0,1)" ) )
+    cat( sprintf( "Cf should be in (0,0.5]" ) )
     cat("\n\n********** PROGRAM TERMINATED **********\n\n")
     return( F )
     

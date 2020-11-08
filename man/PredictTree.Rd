@@ -8,8 +8,9 @@ PredictTree( tree, data )
 }
 \arguments{
 \item{tree}{Fitted model object. This is assumed to be the result of some function that produces an object with the same named components as that returned by the ImbTreeEntropy or ImbTreeEntropyInter functions.}
-}
 \item{data}{Data frame of new examples to be predicted.}
+}
+
 
 \value{
 Data frame with the probability of each class and predicted class label.

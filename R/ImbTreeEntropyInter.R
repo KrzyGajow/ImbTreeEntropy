@@ -41,7 +41,7 @@
 #' Numeric vector of many elements (from 1 up to number of classes). Should have the same number of elements as vector passed to the amb_class parameter.
 #' @param tree_path Path to the folder where the proposed trees created during the interactive learning will be stored. 
 #' *.txt file with the tree structure is iteratively updated. Character vector with one element.
-#'
+#' 
 #' @return
 #' @export ImbTreeEntropyInter
 #'
@@ -93,7 +93,7 @@ ImbTreeEntropyInter <- function( Y_name, X_names, data, depth = 5, min_obs = 5, 
 
   # Call of the main Building function
   BuildTreeInter( Tree, Y_name, X_names, data, depth, min_obs, type, entropy_par, cp, n_cores, weights, cost, 
-                  class_th, overfit, cf, amb_prob, top_split, var_lev, amb_class, amb_class_freq, tree_path )
+                  class_th, overfit, cf, amb_prob, top_split, var_lev, amb_class, amb_class_freq, 1, tree_path )
 
   # Prune tree if needed
   if( overfit == "leafcut" ){

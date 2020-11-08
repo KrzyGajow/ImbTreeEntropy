@@ -6,10 +6,10 @@ Date: 2020-10-20
 Author: Krzysztof Gajowniczek
 Maintainer: Krzysztof Gajowniczek <krzysztof_gajowniczek@sggw.edu.pl>
 Description: Software to build Decision Trees for imbalanced data.
-License: GPL (>= 3)
+License: GPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends:
-  R (>= 3.5), data.tree, snow, GenSA, BBmisc, Rcpp (>= 1.0.4)
+  R (>= 3.5), data.tree, snow, GenSA, BBmisc, caret, shiny, shinyjs, DT, RWeka, Rcpp (>= 1.0.4)
 LinkingTo: Rcpp
 RoxygenNote: 7.1.1

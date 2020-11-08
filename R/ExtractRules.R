@@ -36,11 +36,11 @@ ExtractRules <- function( tree ){
   
   # Take probability of each rule 
   rules_prob <- unname( t( tree$Get("Probability", filterFun = isLeaf) ) )
-  colnames(rules_prob) <- attr(Tree1, "Y_levels")
+  colnames(rules_prob) <- attr(tree, "Y_levels")
   
   # Take count of each rule 
-  class_prob <- attr(Tree1,"Y_statistics")
-  names(class_prob) <- attr(Tree1,"Y_levels")
+  class_prob <- attr(tree,"Y_statistics")
+  names(class_prob) <- attr(tree,"Y_levels")
 
   # Take number of observations
   tree_count <- tree$Count 
