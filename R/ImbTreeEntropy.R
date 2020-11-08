@@ -29,10 +29,15 @@
 #'
 #' @return
 #' @export ImbTreeEntropy
-#'
+#' 
+#' @seealso 
+#' \code{\link{ImbTreeEntropy}}, \code{\link{ImbTreeEntropyInter}}, \code{\link{PredictTree}}, 
+#' \code{\link{PrintTree}}, \code{\link{PrintTreeInter}}, \code{\link{ExtractRules}}
+#' 
 #' @examples
 #'
 #' \dontrun{
+#' 
 #' library("ImbTreeEntropy")
 #' data(iris)
 #' Tree <- ImbTreeEntropy(Y_name = "Species", 

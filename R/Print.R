@@ -7,15 +7,12 @@
 #' @export PrintTree
 #'
 #' @examples
-#'
-#' \dontrun{
 #' library("ImbTreeEntropy")
 #' data(iris)
 #' Tree <- ImbTreeEntropy(Y_name = "Species", 
 #'                        X_names = colnames(iris)[-ncol(iris)], 
 #'                        data = iris) 
 #' Tree <- PrintTree(Tree)
-#' }
 PrintTree <- function( tree ){
   
   # Set displaying format for probability vector

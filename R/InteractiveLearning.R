@@ -74,17 +74,18 @@ InteractiveLearning <- function( split_rule, tree, Y_name, X_names, data, depth,
     # Recursive call of the building function (BuildTree) for the right child
     BuildTree( child, Y_name, X_names, child_frame[[1]], depth - 1, min_obs, type, entropy_par, cp, n_cores, weights, cost, class_th, overfit )
 
+# PrintTree(node)
     # Prune tree if needed
     if( overfit == "leafcut" ){
       
       prune <- PruneTreeInter( node ) 
       
     }else if( overfit == "prune" ){
-      
-      prune <- PessimisticErrorPruningInter( tree, cf )
-      
+
+      prune <- PessimisticErrorPruningInter( node, cf )
+
     }
-    
+
     if( !prune == "NO" ){
       
       # Insert into the original/currnet Tree structure the created subbranches. For display purpose only

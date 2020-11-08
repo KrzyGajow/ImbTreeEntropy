@@ -6,7 +6,7 @@ Date: 2020-10-20
 Author: Krzysztof Gajowniczek
 Maintainer: Krzysztof Gajowniczek <krzysztof_gajowniczek@sggw.edu.pl>
 Description: Software to build Decision Trees for imbalanced data.
-License: GPL (>= 3)
+License: GPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends:
