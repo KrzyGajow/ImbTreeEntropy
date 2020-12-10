@@ -91,7 +91,7 @@ InteractiveLearning <- function( split_rule, tree, Y_name, X_names, data, depth,
     }
     
     prune_vec <- c( prune_vec, prune )
-    
+
     if( !prune == "NO" ){
       
       # Insert into the original/currnet Tree structure the created subbranches. For display purpose only
